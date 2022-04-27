@@ -1,44 +1,50 @@
-//File name: /Users/laptopuser/Documents/cs135_codes/projects/game1024/Board.hpp
-#ifndef BOARD_H 
-#define BOARD_H 
-class Board
-{
-private:
-    int** panel; 
-       //two dimensional array with numRows rows
-       //and numCols columns
-    int numRows; 
-    int numCols;
-    int target; //what is the goal
-    int max; //the current max in all cells of panel
+//File name: /Users/laptopuser/Documents/courses/cs135/projects/memoryGame/MemoryGame.hpp
 
-public:
-    Board(); //construct a 3 x 3 panel
-    Board(int m); //construct a m x m panel
-    Board(int m, int n); //construct a m x n panel
-    void setGoal(int goal);
-        //set goal of the game
-    ~Board(); //destructor,
-        //when no longer need the current object,
-        //release dynamic memory of this object.
-    void allocateMemory();
-        //apply dynamic memory for panel
-        //so that panel has numRows rows and
-        //numCols columns
-    void clear();
-        //set each cell of the panel to be zero
-    void print() const;
-        //print the panel
-    void selectRandomCell(int& row, int& col);
-        //select a random cell from empty cell
-    void pressUp();
-    void pressDown();
-    void pressLeft();
-    void pressRight(); //press right key
-    void start(); //start the game
-    bool noAdjacentSameValue() const;
-        //if there is no two adjacent cells
-        //share same value, return true,
-        //otherwise, return false.
+//header file of C++ ends with .hpp
+//#ifndef … #define … #endif are called include guard.
+//They can make sure a header file will not be included 
+//more than once. For example, suppose Hare and Tortoise 
+//are inherited from Animal class, 
+//then Animal.hpp is included in both Hare.hpp and Tortoise.hpp.
+//Then when we have a competition involves Hare and Tortoise,
+//Animal.hpp would have been included more than once, 
+//as a result, data members and function members in Animal.hpp
+//are declared more than once, which causes compilation problem.
+#ifndef _MEMORY_GAME
+#define _MEMORY_GAME
+#include <string>
+using namespace std;
+class MemoryGame
+{
+public: //public method member, any class can use these methods
+    MemoryGame(); 
+       //default constructor, with 3 pairs of numbers 
+       //randomly located in 8 blocks (two blocks are empty).
+    //MemoryGame(int n); 
+       //with n >= 3 pairs of numbers randomly located
+    //MemoryGame(int n, int m);
+       //with n >= 3 pairs of numbers randomly located in m space
+    //MemoryGame(string *words, int size);
+       //instead of randomly generated numbers,
+       //pairs with words
+    ~MemoryGame();
+    void play();
+    void display(bool* bShown); 
+         //display array values, if bShown[i] is true,
+         //then values[i] is displayed, where i is the index.
+
+private: //private data members, private means that
+         //only methods in this class, not other class,
+         //can access or modify these data members.
+    int numPairs; //numPairs of identical twin items
+    int numSlots; 
+        //size of array value, besides identical twins, 
+        //may contain empty string to 
+        //make the problem more challenging
+    string *values; 
+        //a string to represent the layout of data,
+        //mixed with possible empty strings.
+        //Use array to access each element in const time.
 };
 #endif
+
